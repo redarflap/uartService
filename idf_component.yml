@@ -1,0 +1,4 @@
+description: "ESP-IDF Simple UART Service"
+version: "1.0.0"
+url: "https://github.com/redarflap/uartService"
+license: "MIT"
