@@ -37,4 +37,5 @@ public:
   }
 
   int sendString(std::string text);
+  int sendBytes(const std::vector<uint8_t> &data);
 };

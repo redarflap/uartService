@@ -33,6 +33,26 @@ int UartService::sendString(std::string text)
   return 0;
 }
 
+int UartService::sendBytes(const std::vector<uint8_t> &data)
+{
+  if (data.empty())
+  {
+    ESP_LOGW(TAGUART, "sendBytes called with empty data buffer");
+    return 0;
+  }
+
+  std::string hex;
+  for (uint8_t b : data)
+  {
+    char buf[4];
+    snprintf(buf, sizeof(buf), "%02X ", b);
+    hex += buf;
+  }
+  ESP_LOGD(TAGUART, "Sending bytes: %s", hex.c_str());
+
+  return uart_write_bytes(config.uartPort, reinterpret_cast<const char *>(data.data()), data.size());
+}
+
 void UartService::onEvent(void *pvParameters)
 {
   UartService *instance = static_cast<UartService *>(pvParameters);
